@@ -8,7 +8,7 @@ import jakarta.persistence.Persistence;
 
 import java.util.List;
 
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
@@ -28,9 +28,21 @@ public class App
 
         GameRepositoryImpl repo = new GameRepositoryImpl(em);
         List<Personnage> persos = repo.findAllCharacters();
+        List<Personnage> arthas = repo.findCharacterByName("tha");
+        List<Personnage> minlevel = repo.findCharactersByMinLevel( 1);
 
         System.out.println("🎮 Personnages en base :");
         for (Personnage pe : persos) {
+            System.out.println("- " + pe.getNom() + " (niveau " + pe.getNiveau() + ")");
+        }
+
+        System.out.println("🎮 Personnages avec tha :");
+        for (Personnage pe : arthas) {
+            System.out.println("- " + pe.getNom() + " (niveau " + pe.getNiveau() + ")");
+        }
+
+        System.out.println("🎮 Personnages plus de niv10 :");
+        for (Personnage pe : minlevel) {
             System.out.println("- " + pe.getNom() + " (niveau " + pe.getNiveau() + ")");
         }
     }

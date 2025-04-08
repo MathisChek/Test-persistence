@@ -6,7 +6,7 @@ import com.rpgschool.entity.TypeEquipement;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 public class GameRepositoryImpl implements GameRepository {
@@ -36,6 +36,13 @@ public class GameRepositoryImpl implements GameRepository {
         return em.createQuery("SELECT e FROM Equipement e WHERE e.type = :type AND e.bonus > :minPower", Equipement.class)
                 .setParameter("type", TypeEquipement.ARME)
                 .setParameter("minPower", minPower)
+                .getResultList();
+    }
+
+    @Override
+    public List<Personnage> findCharacterByName(String name) {
+        return em.createQuery("SELECT p FROM Personnage p WHERE p.nom LIKE :name ", Personnage.class)
+                .setParameter("name", "%" + name + "%")
                 .getResultList();
     }
 }
