@@ -15,6 +15,17 @@ public class Personnage {
     private int niveau;
     private int experience;
 
+    @Enumerated(EnumType.STRING)
+    private Type_Personnage type;
+
+    public Type_Personnage getType() {
+        return type;
+    }
+
+    public void setType(Type_Personnage type) {
+        this.type = type;
+    }
+
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
 

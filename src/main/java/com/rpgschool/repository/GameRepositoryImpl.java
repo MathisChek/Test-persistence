@@ -4,6 +4,7 @@ import com.rpgschool.entity.Personnage;
 import com.rpgschool.entity.Equipement;
 import com.rpgschool.entity.TypeEquipement;
 
+import com.rpgschool.entity.Type_Personnage;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
@@ -43,6 +44,14 @@ public class GameRepositoryImpl implements GameRepository {
     public List<Personnage> findCharacterByName(String name) {
         return em.createQuery("SELECT p FROM Personnage p WHERE p.nom LIKE :name ", Personnage.class)
                 .setParameter("name", "%" + name + "%")
+                .getResultList();
+    }
+
+    @Override
+    public List<Personnage> findTypePersonnage(Type_Personnage type, int minLevel) {
+        return em.createQuery("SELECT p FROM Personnage p WHERE p.type = :type AND p.niveau >= :minLevel ", Personnage.class)
+                .setParameter("type", type)
+                .setParameter("minLevel", minLevel)
                 .getResultList();
     }
 }
