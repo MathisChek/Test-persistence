@@ -14,4 +14,6 @@ public interface GameRepository {
     List<Personnage> findCharacterByName(String name);
 
     List<Personnage> findTypePersonnage(Type_Personnage type, int minLevel);
+
+    List<Equipement> findWeaponsByClass(Type_Personnage type,String name);
 }

@@ -15,6 +15,7 @@ public class Personnage {
     private int niveau;
     private int experience;
 
+
     @Enumerated(EnumType.STRING)
     private Type_Personnage type;
 
@@ -72,7 +73,7 @@ public class Personnage {
         return statistiques;
     }
 
-    public Inventaire getInventaire() {
+    public List<Inventaire> getInventaire() {
         return inventaire;
     }
 
@@ -87,11 +88,25 @@ public class Personnage {
     @OneToOne(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Statistiques statistiques;
 
-    @OneToOne(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Inventaire inventaire;
+    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Inventaire> inventaire;
 
     @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ApprentissageCompetence> competences;
+
+
+
+    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Equipement> equipement;
+
+
+    public List<Equipement> getEquipement() {
+        return equipement;
+    }
+
+    public void setEquipement(List<Equipement> equipement) {
+        this.equipement = equipement;
+    }
 
     public void setStatistiques(Statistiques stats) {
         this.statistiques = stats;
@@ -100,10 +115,11 @@ public class Personnage {
         }
     }
 
-    public void setInventaire(Inventaire inventaire) {
+    public void setInventaire(List<Inventaire> inventaire) {
         this.inventaire = inventaire;
-        if (inventaire != null) {
-            inventaire.setPersonnage(this);
-        }
+    }
+
+    public void addInventaire(Inventaire inventaire) {
+        this.inventaire.add(inventaire);
     }
 }

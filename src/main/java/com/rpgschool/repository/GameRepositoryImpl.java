@@ -54,4 +54,12 @@ public class GameRepositoryImpl implements GameRepository {
                 .setParameter("minLevel", minLevel)
                 .getResultList();
     }
+
+    @Override
+    public List<Equipement> findWeaponsByClass(Type_Personnage typePersonnage, String name) {
+        return em.createQuery("SELECT e FROM Equipement e WHERE e.specificite = :type AND e.nom LIKE :name ", Equipement.class)
+                .setParameter("type", typePersonnage)
+                .setParameter("name", "%" + name + "%")
+                .getResultList();
+    }
 }

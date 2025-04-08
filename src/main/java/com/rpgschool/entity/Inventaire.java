@@ -13,12 +13,11 @@ public class Inventaire {
     private int capaciteMax;
     private int poidsActuel;
 
-    @OneToOne
-    @JoinColumn(name = "personnage_id")
-    private Personnage personnage;
-
     @OneToMany(mappedBy = "inventaire", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<EmplacementInventaire> emplacements;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Personnage personnage;
 
     public Inventaire() {
     }
@@ -35,10 +34,6 @@ public class Inventaire {
         this.poidsActuel = poidsActuel;
     }
 
-    public Personnage getPersonnage() {
-        return personnage;
-    }
-
     public List<EmplacementInventaire> getEmplacements() {
         return emplacements;
     }
@@ -53,9 +48,5 @@ public class Inventaire {
 
     public void setCapaciteMax(int capaciteMax) {
         this.capaciteMax = capaciteMax;
-    }
-
-    public void setPersonnage(Personnage personnage) {
-        this.personnage = personnage;
     }
 }

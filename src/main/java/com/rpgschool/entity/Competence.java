@@ -15,16 +15,6 @@ public class Competence {
     private int coutMana;
     private int niveauRequis;
 
-    @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ApprentissageCompetence> personnages;
-
-    public List<ApprentissageCompetence> getPersonnages() {
-        return personnages;
-    }
-
-    public void setPersonnages(List<ApprentissageCompetence> personnages) {
-        this.personnages = personnages;
-    }
 
     public int getCoutMana() {
         return coutMana;

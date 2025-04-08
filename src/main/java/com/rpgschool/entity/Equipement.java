@@ -20,7 +20,21 @@ public class Equipement {
     private TypeEquipement type;
 
     @Enumerated(EnumType.STRING)
+    private Type_Personnage specificite;
+
+    @Enumerated(EnumType.STRING)
     private RareteEquipement rarete;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Personnage personnage;
+
+    public Type_Personnage getSpecificite() {
+        return specificite;
+    }
+
+    public void setSpecificite(Type_Personnage specificite) {
+        this.specificite = specificite;
+    }
 
     private int bonus;
 
@@ -60,5 +74,17 @@ public class Equipement {
 
     public void setBonus(int bonus) {
         this.bonus = bonus;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipement{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", type=" + type +
+                ", specificite=" + specificite +
+                ", rarete=" + rarete +
+                ", bonus=" + bonus +
+                '}';
     }
 }
