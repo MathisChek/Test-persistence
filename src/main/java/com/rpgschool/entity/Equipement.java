@@ -28,6 +28,8 @@ public class Equipement {
     @ManyToOne(fetch = FetchType.LAZY)
     private Personnage personnage;
 
+    private int puissance;
+
     public Type_Personnage getSpecificite() {
         return specificite;
     }
@@ -77,12 +79,22 @@ public class Equipement {
         this.bonus = bonus;
     }
 
+
+
     public Personnage getPersonnage() {
         return personnage;
     }
 
     public void setPersonnage(Personnage personnage) {
         this.personnage = personnage;
+    }
+
+    public int getPuissance() {
+        return puissance;
+    }
+
+    public void setPuissance(int puissance) {
+        this.puissance = puissance;
     }
 
     @Override
@@ -93,6 +105,8 @@ public class Equipement {
                 ", type=" + type +
                 ", specificite=" + specificite +
                 ", rarete=" + rarete +
+                ", personnage=" + personnage +
+                ", puissance=" + puissance +
                 ", bonus=" + bonus +
                 '}';
     }

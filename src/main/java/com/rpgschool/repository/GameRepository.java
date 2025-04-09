@@ -21,4 +21,12 @@ public interface GameRepository {
     List<Personnage> getAllPersonnagesWithEquipment();
 
     List<Personnage> getAllByTypeEquipment(TypeEquipement equipementType);
+
+    List<Personnage> getAllCharacterWithSpecificWeapon(TypeEquipement equipmentType);
+
+    List<Personnage> getAllCharacterWithCriteria();
+
+    List<Personnage> getAllCharacterWithCriteriaAndMinLevel(int minLevel);
+
+    List<Equipement> getAllEquipmentWithCriteriaAndMinPower(int minPower);
 }

@@ -14,6 +14,13 @@ public class Personnage {
     private String nom;
     private int niveau;
     private int experience;
+    //Caractéristiques
+    private int age;
+    private int vie;
+    private int intelligence;
+    private int force;
+    private int rapidite;
+    private int mort;
 
 
     @Enumerated(EnumType.STRING)
@@ -41,8 +48,13 @@ public class Personnage {
         return niveau;
     }
 
-    public void setNiveau(int niveau) {
-        this.niveau = niveau;
+    public void setNiveau(int _niveau) {
+        if (_niveau > this.niveau ? true : false) {
+            System.out.println("Augmentation de niveau.");
+            this.force +=  _niveau - this.niveau ;
+            this.intelligence += _niveau - this.niveau ;
+            this.niveau = _niveau;
+        }
     }
 
     public String getNom() {
@@ -121,6 +133,54 @@ public class Personnage {
 
     public void addInventaire(Inventaire inventaire) {
         this.inventaire.add(inventaire);
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getVie() {
+        return vie;
+    }
+
+    public void setVie(int vie) {
+        this.vie = vie;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public int getForce() {
+        return force;
+    }
+
+    public void setForce(int force) {
+        this.force = force;
+    }
+
+    public int getRapidite() {
+        return rapidite;
+    }
+
+    public void setRapidite(int rapidite) {
+        this.rapidite = rapidite;
+    }
+
+    public int getMort() {
+        return mort;
+    }
+
+    public void setMort(int mort) {
+        this.mort = mort;
     }
 
     @Override

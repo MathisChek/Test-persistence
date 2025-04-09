@@ -23,6 +23,7 @@ public class App
         p.setType(Type_Personnage.GUERRIER);
         Equipement equipement = new Equipement();
         equipement.setNom("hache");
+        equipement.setPuissance(0);
         equipement.setSpecificite(Type_Personnage.GUERRIER);
         List<Equipement> equipements = new ArrayList<Equipement>();
         equipements.add(equipement);
@@ -77,6 +78,18 @@ public class App
         for(Personnage perso : personnageListWithEquipment){
             System.out.println(perso.toString());
             System.out.println(perso.getEquipement().toString());
+        }
+
+        System.out.println("Liste de tout les personnes");
+        List<Personnage> allPersonnageByCriteriaBuilder = repo.getAllCharacterWithCriteria();
+        for(Personnage myPerso : allPersonnageByCriteriaBuilder){
+            System.out.println(myPerso.toString());
+        }
+
+        System.out.println("Liste de tout les armes par niveau minimum de pouvoir");
+        List<Equipement> allEquipmentByPower = repo.getAllEquipmentWithCriteriaAndMinPower(1);
+        for(Equipement equip : allEquipmentByPower){
+            System.out.println(equip.toString());
         }
     }
 }

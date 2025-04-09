@@ -7,6 +7,10 @@ import com.rpgschool.entity.TypeEquipement;
 import com.rpgschool.entity.Type_Personnage;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
@@ -78,5 +82,46 @@ public class GameRepositoryImpl implements GameRepository {
                         Personnage.class)
                 .setParameter("type", equipementType)
                 .getResultList();
+    }
+
+    @Override
+    public List<Personnage> getAllCharacterWithSpecificWeapon(TypeEquipement equipmentType) {
+        return null;
+    }
+
+    @Override
+    public List<Personnage> getAllCharacterWithCriteria() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Personnage> query = cb.createQuery(Personnage.class);
+        Root<Personnage> characterRoot = query.from(Personnage.class);
+        query.select(characterRoot);
+        return em.createQuery(query).getResultList();
+    }
+
+    @Override
+    public List<Personnage> getAllCharacterWithCriteriaAndMinLevel(int minLevel) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        EntityManager entityManager = em.getEntityManagerFactory().createEntityManager();
+        CriteriaQuery<Personnage> query = cb.createQuery(Personnage.class);
+
+        Root<Personnage> characterRoot = query.from(Personnage.class);
+        Predicate levelPredicate = cb.greaterThanOrEqualTo(characterRoot.get("niveau"), minLevel);
+
+        query.select(characterRoot);
+        query.where(levelPredicate);
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public List<Equipement> getAllEquipmentWithCriteriaAndMinPower(int minPower) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        EntityManager entityManager = em.getEntityManagerFactory().createEntityManager();
+        CriteriaQuery<Equipement> query = cb.createQuery(Equipement.class);
+
+        Root<Equipement> characterRoot = query.from(Equipement.class);
+        Predicate levelPredicate = cb.greaterThanOrEqualTo(characterRoot.get("puissance"), minPower);
+        query.select(characterRoot);
+        query.where(levelPredicate);
+        return entityManager.createQuery(query).getResultList();
     }
 }
