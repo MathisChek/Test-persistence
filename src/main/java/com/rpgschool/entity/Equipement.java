@@ -48,6 +48,7 @@ public class Equipement {
         return nom;
     }
 
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -74,6 +75,14 @@ public class Equipement {
 
     public void setBonus(int bonus) {
         this.bonus = bonus;
+    }
+
+    public Personnage getPersonnage() {
+        return personnage;
+    }
+
+    public void setPersonnage(Personnage personnage) {
+        this.personnage = personnage;
     }
 
     @Override

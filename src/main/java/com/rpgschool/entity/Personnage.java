@@ -122,4 +122,20 @@ public class Personnage {
     public void addInventaire(Inventaire inventaire) {
         this.inventaire.add(inventaire);
     }
+
+    @Override
+    public String toString() {
+        return "Personnage{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", niveau=" + niveau +
+                ", experience=" + experience +
+                ", type=" + type +
+                ", dateCreation=" + dateCreation +
+                ", statistiques=" + statistiques +
+                ", inventaire=" + inventaire +
+                ", competences=" + competences +
+                ", equipement=" + equipement +
+                '}';
+    }
 }

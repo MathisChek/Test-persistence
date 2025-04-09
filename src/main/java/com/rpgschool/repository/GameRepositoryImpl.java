@@ -62,4 +62,21 @@ public class GameRepositoryImpl implements GameRepository {
                 .setParameter("name", "%" + name + "%")
                 .getResultList();
     }
+
+    @Override
+    public List<Personnage> getAllPersonnagesWithEquipment() {
+            return em.createQuery(
+                            "SELECT p FROM Personnage p LEFT JOIN FETCH p.equipement",
+                            Personnage.class)
+                    .getResultList();
+    }
+
+    @Override
+    public List<Personnage> getAllByTypeEquipment(TypeEquipement equipementType) {
+        return em.createQuery(
+                        "SELECT p FROM Personnage p LEFT JOIN FETCH p.equipement  e where e.type= :type",
+                        Personnage.class)
+                .setParameter("type", equipementType)
+                .getResultList();
+    }
 }

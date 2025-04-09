@@ -2,6 +2,7 @@ package com.rpgschool.repository;
 
 import com.rpgschool.entity.Personnage;
 import com.rpgschool.entity.Equipement;
+import com.rpgschool.entity.TypeEquipement;
 import com.rpgschool.entity.Type_Personnage;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface GameRepository {
     List<Personnage> findTypePersonnage(Type_Personnage type, int minLevel);
 
     List<Equipement> findWeaponsByClass(Type_Personnage type,String name);
+
+    List<Personnage> getAllPersonnagesWithEquipment();
+
+    List<Personnage> getAllByTypeEquipment(TypeEquipement equipementType);
 }

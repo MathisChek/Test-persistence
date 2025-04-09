@@ -71,5 +71,12 @@ public class App
         for (Equipement e : equipementByType) {
             System.out.println(" -Equipement :  " + e.toString());
         }
+
+        List<Personnage> personnageListWithEquipment = repo.getAllPersonnagesWithEquipment();
+        System.out.println("Liste de tout les personnes");
+        for(Personnage perso : personnageListWithEquipment){
+            System.out.println(perso.toString());
+            System.out.println(perso.getEquipement().toString());
+        }
     }
 }
