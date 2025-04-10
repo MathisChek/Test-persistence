@@ -10,7 +10,7 @@ public class Personnage {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
+    @Column(unique = true, nullable = false)
     private String nom;
     private int niveau;
     private int experience;
@@ -89,11 +89,11 @@ public class Personnage {
         return inventaire;
     }
 
-    public List<ApprentissageCompetence> getCompetences() {
+    public List<Competence> getCompetences() {
         return competences;
     }
 
-    public void setCompetences(List<ApprentissageCompetence> competences) {
+    public void setCompetences(List<Competence> competences) {
         this.competences = competences;
     }
 
@@ -104,7 +104,7 @@ public class Personnage {
     private List<Inventaire> inventaire;
 
     @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ApprentissageCompetence> competences;
+    private List<Competence> competences;
 
 
 
@@ -191,11 +191,6 @@ public class Personnage {
                 ", niveau=" + niveau +
                 ", experience=" + experience +
                 ", type=" + type +
-                ", dateCreation=" + dateCreation +
-                ", statistiques=" + statistiques +
-                ", inventaire=" + inventaire +
-                ", competences=" + competences +
-                ", equipement=" + equipement +
                 '}';
     }
 }

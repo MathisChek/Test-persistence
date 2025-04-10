@@ -15,6 +15,8 @@ public class Competence {
     private int coutMana;
     private int niveauRequis;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Personnage personnage;
 
     public int getCoutMana() {
         return coutMana;
@@ -50,6 +52,14 @@ public class Competence {
 
     public UUID getId() {
         return id;
+    }
+
+    public Personnage getPersonnage() {
+        return personnage;
+    }
+
+    public void setPersonnage(Personnage personnage) {
+        this.personnage = personnage;
     }
 }
 

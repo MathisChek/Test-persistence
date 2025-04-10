@@ -28,15 +28,17 @@ public class App
         List<Equipement> equipements = new ArrayList<Equipement>();
         equipements.add(equipement);
         p.setEquipement(equipements);
-
-
-        em.getTransaction().begin();
-        em.persist(p); // l'objet est ajouté au contexte de persistance
-        em.getTransaction().commit(); // il est inséré en base
-
+        try {
+            em.getTransaction().begin();
+            em.persist(p); // l'objet est ajouté au contexte de persistance
+            em.getTransaction().commit(); // il est inséré en base
+        }catch (Exception e) {
+            System.out.println("Erreur de persistance" + e.getMessage().toString());
+        }
 
 
         GameRepositoryImpl repo = new GameRepositoryImpl(em);
+
         List<Personnage> persos = repo.findAllCharacters();
         List<Personnage> arthas = repo.findCharacterByName("tha");
         List<Personnage> minlevel = repo.findCharactersByMinLevel( 1);
@@ -91,5 +93,7 @@ public class App
         for(Equipement equip : allEquipmentByPower){
             System.out.println(equip.toString());
         }
+
+
     }
 }
