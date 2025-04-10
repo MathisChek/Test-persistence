@@ -54,12 +54,26 @@ public class Competence {
         return id;
     }
 
+
+
     public Personnage getPersonnage() {
         return personnage;
     }
 
     public void setPersonnage(Personnage personnage) {
         this.personnage = personnage;
+    }
+
+    @Override
+    public String toString() {
+        return "Competence{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", coutMana=" + coutMana +
+                ", niveauRequis=" + niveauRequis +
+                ", personnage=" + personnage.getNom().toString()+
+                '}';
     }
 }
 

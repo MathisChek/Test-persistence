@@ -25,7 +25,7 @@ public class Equipement {
     @Enumerated(EnumType.STRING)
     private RareteEquipement rarete;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Personnage personnage;
 
     private int puissance;

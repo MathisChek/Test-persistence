@@ -1,6 +1,8 @@
 package com.rpgschool.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -97,6 +99,20 @@ public class Personnage {
         this.competences = competences;
     }
 
+    // Méthodes pour gérer la relation
+    public void addCompetence(Competence competence) {
+        if(this.competences == null) {
+            this.competences = new ArrayList<Competence>();
+        }
+        competences.add(competence);
+        competence.setPersonnage(this);
+    }
+
+    public void removeCompetence(Competence competence) {
+        competences.remove(competence);
+        competence.setPersonnage(null);
+    }
+
     @OneToOne(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Statistiques statistiques;
 
@@ -183,14 +199,35 @@ public class Personnage {
         this.mort = mort;
     }
 
+    //Affiche toute les informations de Personnage,
+    // ainsi que des differents objets lié à celle-ci
+    public void showAllFields(){
+
+    }
+
     @Override
     public String toString() {
+        String competencesToString = "";
+        for(Competence competence : competences) {
+            competencesToString += competence.toString() + "\n";
+        }
+
         return "Personnage{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", niveau=" + niveau +
                 ", experience=" + experience +
+                ", age=" + age +
+                ", vie=" + vie +
+                ", intelligence=" + intelligence +
+                ", force=" + force +
+                ", rapidite=" + rapidite +
+                ", mort=" + mort +
                 ", type=" + type +
+                ", dateCreation=" + dateCreation +
+                ", inventaire=" + ( inventaire.isEmpty() ? "": inventaire.toString())  +
+                ", competences=" + (competences.isEmpty() ? "None" : competences.toString())+
+                ", equipement=" + (equipement.isEmpty() ? "" : equipement.toString()) +
                 '}';
     }
 }

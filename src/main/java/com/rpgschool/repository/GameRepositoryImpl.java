@@ -6,6 +6,7 @@ import com.rpgschool.entity.TypeEquipement;
 
 import com.rpgschool.entity.Type_Personnage;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 
@@ -128,17 +129,20 @@ public class GameRepositoryImpl implements GameRepository {
         em.getTransaction().begin();
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
+        EntityManager entityManager = em.getEntityManagerFactory().createEntityManager();
+        CriteriaDelete<Personnage> query = cb.createCriteriaDelete(Personnage.class);
+        Root<Personnage> characterRoot = query.from(Personnage.class);
+        query.where(cb.equal(characterRoot.get("nom"), nameToDelete));
+        int deletedCount = em.createQuery(query).executeUpdate();
 
-        //Creation de notre criteriaDelete
-        CriteriaDelete<Personnage>  criteriaDelete = cb.createCriteriaDelete(Personnage.class);
-        Root<Personnage> root = criteriaDelete.from(Personnage.class);
-
-        criteriaDelete.where(cb.equal(root.get("nom"),nameToDelete));
-        int deletedCount = 0;
-        deletedCount = em.createQuery(criteriaDelete).executeUpdate();
         em.getTransaction().commit();
         System.out.println("Deleted " + deletedCount + " personnages");
 
         return deletedCount;
+    }
+
+    @Override
+    public Personnage findByNameWithJoin(String name) {
+        return null;
     }
 }

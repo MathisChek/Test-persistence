@@ -1,6 +1,7 @@
 package com.rpgschool;
 
 import com.rpgschool.entity.*;
+import com.rpgschool.repository.GameRepository;
 import com.rpgschool.repository.GameRepositoryImpl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -13,11 +14,13 @@ public class App
 {
     public static void main( String[] args )
     {
+
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-test");
         EntityManager em = emf.createEntityManager();
 
         Personnage p = new Personnage();
-        p.setNom("Arthas");
+        p.setNom("Arthas3");
         p.setNiveau(3);
         p.setExperience(2500);
         p.setType(Type_Personnage.GUERRIER);
@@ -28,8 +31,20 @@ public class App
         List<Equipement> equipements = new ArrayList<Equipement>();
         equipements.add(equipement);
         p.setEquipement(equipements);
+
+        Competence competence = new Competence();
+        competence.setNom("Holy grenade");
+        competence.setDescription("Holy grenade");
+        competence.setCoutMana(50);
+        competence.setNiveauRequis(5);
+        p.addCompetence(competence);
+
+        GameRepositoryImpl repo = new GameRepositoryImpl(em);
         try {
             em.getTransaction().begin();
+           // int deletedPersonnage = repo.deleteAllByName("Arthas");
+            //System.out.println("Perso supprimed : " + deletedPersonnage);
+            em.persist(competence);
             em.persist(p); // l'objet est ajouté au contexte de persistance
             em.getTransaction().commit(); // il est inséré en base
         }catch (Exception e) {
@@ -37,7 +52,8 @@ public class App
         }
 
 
-        GameRepositoryImpl repo = new GameRepositoryImpl(em);
+
+
 
         List<Personnage> persos = repo.findAllCharacters();
         List<Personnage> arthas = repo.findCharacterByName("tha");
@@ -94,6 +110,8 @@ public class App
             System.out.println(equip.toString());
         }
 
+        Personnage personnageFetched = repo.findByNameWithJoin("Arthas3");
+        System.out.println("Personnage Fetched : " + (personnageFetched != null ?personnageFetched.toString(): 0));
 
     }
 }

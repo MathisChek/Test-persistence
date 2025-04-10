@@ -31,4 +31,6 @@ public interface GameRepository {
     List<Equipement> getAllEquipmentWithCriteriaAndMinPower(int minPower);
     //return the number of deleted "Personnage"
     int deleteAllByName(String nameToDelete);
+
+    Personnage findByNameWithJoin(String name);
 }
