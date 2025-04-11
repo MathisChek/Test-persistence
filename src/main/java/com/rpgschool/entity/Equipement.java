@@ -105,7 +105,6 @@ public class Equipement {
                 ", type=" + type +
                 ", specificite=" + specificite.toString() +
                 ", rarete=" + rarete +
-                ", personnage=" + ( personnage != null ? "" : "")+
                 ", puissance=" + puissance +
                 ", bonus=" + bonus +
                 '}';

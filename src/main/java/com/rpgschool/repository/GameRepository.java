@@ -32,5 +32,12 @@ public interface GameRepository {
     //return the number of deleted "Personnage"
     int deleteAllByName(String nameToDelete);
 
+    List<Personnage> findCharactersWithMostPowerfulEquipment(TypeEquipement type);
+
     Personnage findByNameWithJoin(String name);
+
+    public void massExpGain();
+
+    /// A faire pour l'exercice $
+    // Une fonction qui me retourne le nombre de heros, une autre qui me retourne leur niveau moyen.
 }

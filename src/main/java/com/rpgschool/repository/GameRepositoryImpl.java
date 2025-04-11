@@ -8,6 +8,7 @@ import com.rpgschool.entity.Type_Personnage;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.*;
 
 import java.util.List;
@@ -84,7 +85,16 @@ public class GameRepositoryImpl implements GameRepository {
 
     @Override
     public List<Personnage> getAllCharacterWithSpecificWeapon(TypeEquipement equipmentType) {
-        return null;
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Personnage> query = cb.createQuery(Personnage.class);
+        Root<Personnage> characterRoot = query.from(Personnage.class);
+
+
+        Join<Personnage , Equipement> equipementJoin = characterRoot.join("equipement");
+        characterRoot.fetch("equipement", JoinType.INNER);
+        query.where(cb.equal(equipementJoin.get("type"), equipmentType));
+        return em.createQuery(query).getResultList();
     }
 
     @Override
@@ -142,6 +152,21 @@ public class GameRepositoryImpl implements GameRepository {
     }
 
     @Override
+    public List<Personnage> findCharactersWithMostPowerfulEquipment(TypeEquipement equipmentType) {
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        EntityManager entityManager = em.getEntityManagerFactory().createEntityManager();
+        CriteriaQuery<Personnage> query = cb.createQuery(Personnage.class);
+
+        Root<Personnage> characterRoot = query.from(Personnage.class);
+        Join<Personnage, Equipement> join = characterRoot.join("equipement");
+        query.select(characterRoot).orderBy(cb.desc(join.get("puissance")));
+
+
+        return entityManager.createQuery(query).setFirstResult(0).setMaxResults(2).getResultList();
+    }
+
+    @Override
     public Personnage findByNameWithJoin(String name) {
 
         String jpql1 = "SELECT p FROM Personnage p LEFT JOIN FETCH p.equipement as e WHERE p.nom = :name  ";
@@ -158,5 +183,13 @@ public class GameRepositoryImpl implements GameRepository {
         }else{
                 return new Personnage();
         }
+    }
+    public void massExpGain(){
+        String hqlRequete = "UPDATE Personnage p SET p.niveau =(p.niveau + 1) WHERE p.type = '" + Type_Personnage.GUERRIER.toString() + "'"  ;
+    em.getTransaction().begin();
+    Query query = em.createQuery(hqlRequete);
+    query.executeUpdate();
+    em.getTransaction().commit();
+
     }
 }

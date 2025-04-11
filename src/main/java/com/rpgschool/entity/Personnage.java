@@ -39,6 +39,18 @@ public class Personnage {
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
 
+    @OneToOne(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Statistiques statistiques;
+
+    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Inventaire> inventaire;
+
+    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Competence> competences;
+
+    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Equipement> equipement;
+
     public Personnage() {
     }
 
@@ -113,19 +125,7 @@ public class Personnage {
         competence.setPersonnage(null);
     }
 
-    @OneToOne(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Statistiques statistiques;
 
-    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Inventaire> inventaire;
-
-    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Competence> competences;
-
-
-
-    @OneToMany(mappedBy = "personnage", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Equipement> equipement;
 
 
     public List<Equipement> getEquipement() {
@@ -214,7 +214,7 @@ public class Personnage {
 
         StringBuilder equipementToString = new StringBuilder();
         for(Equipement equipementItem : equipement) {
-            equipementToString.append(equipementToString).append("\n");
+            equipementToString.append(equipementItem.toString()).append("\n");
         }
 
         return "Personnage{" +
