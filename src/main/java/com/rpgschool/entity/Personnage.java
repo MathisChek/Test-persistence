@@ -207,9 +207,14 @@ public class Personnage {
 
     @Override
     public String toString() {
-        String competencesToString = "";
+        StringBuilder competencesToString = new StringBuilder();
         for(Competence competence : competences) {
-            competencesToString += competence.toString() + "\n";
+            competencesToString.append(competence.toString()).append("\n");
+        }
+
+        StringBuilder equipementToString = new StringBuilder();
+        for(Equipement equipementItem : equipement) {
+            equipementToString.append(equipementToString).append("\n");
         }
 
         return "Personnage{" +
@@ -225,9 +230,9 @@ public class Personnage {
                 ", mort=" + mort +
                 ", type=" + type +
                 ", dateCreation=" + dateCreation +
-                ", inventaire=" + ( inventaire.isEmpty() ? "": inventaire.toString())  +
-                ", competences=" + (competences.isEmpty() ? "None" : competences.toString())+
-                ", equipement=" + (equipement.isEmpty() ? "" : equipement.toString()) +
+                ", inventaire=" + ( inventaire == null ? "": inventaire.toString())  +
+                ", competences=" + (competences== null  ? "" : competences.toString())+
+                ", equipement=" + (equipementToString) +
                 '}';
     }
 }

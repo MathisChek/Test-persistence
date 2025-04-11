@@ -143,6 +143,20 @@ public class GameRepositoryImpl implements GameRepository {
 
     @Override
     public Personnage findByNameWithJoin(String name) {
-        return null;
+
+        String jpql1 = "SELECT p FROM Personnage p LEFT JOIN FETCH p.equipement as e WHERE p.nom = :name  ";
+
+            Personnage personnage = em.createQuery(jpql1, Personnage.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+
+            if (personnage != null) {
+
+
+             return personnage;
+
+        }else{
+                return new Personnage();
+        }
     }
 }

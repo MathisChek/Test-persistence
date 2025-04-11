@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @IdClass(ApprentissageCompetenceId.class)
@@ -70,8 +71,8 @@ public class ApprentissageCompetence {
 }
 
 class ApprentissageCompetenceId implements Serializable {
-    private Long personnage;
-    private Long competence;
+    private UUID personnage;
+    private UUID competence;
 
     // equals() et hashCode() requis
     public boolean equals(Object o) {
@@ -81,19 +82,19 @@ class ApprentissageCompetenceId implements Serializable {
         return personnage.equals(that.personnage) && competence.equals(that.competence);
     }
 
-    public Long getPersonnage() {
+    public UUID getPersonnage() {
         return personnage;
     }
 
-    public void setPersonnage(Long personnage) {
+    public void setPersonnage(UUID personnage) {
         this.personnage = personnage;
     }
 
-    public Long getCompetence() {
+    public UUID getCompetence() {
         return competence;
     }
 
-    public void setCompetence(Long competence) {
+    public void setCompetence(UUID competence) {
         this.competence = competence;
     }
 
